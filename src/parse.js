@@ -201,7 +201,7 @@ async function parse(changelog) {
           // The entry object should now be our spot to append data, so it's time to determine
           // where we can add the data
           if (typeof entry === "string") {
-            entryLoc[entryLoc.length-1] = `${entryLoc[entryLoc.length-1]} \n${cur}`;
+            entryLoc[entryLoc.length-1] = `${entryLoc[entryLoc.length-1]}\n${cur}`;
           } else {
             console.error(`Unable to determine where to append: '${cur}' within the tree! This data will be lost!`)
           }

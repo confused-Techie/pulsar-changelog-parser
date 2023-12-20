@@ -90,10 +90,13 @@ async function stringify(clo) {
       }
 
       // The end of every codebase should add a newline
-      cls += `\n`;
+      cls += "\n";
     }
   }
 
+  // We want to remove any extrenious newlines at the end of the file
+  //cls.replace(/\n$/, "");
+  
   return cls;
 }
 
