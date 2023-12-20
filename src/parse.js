@@ -1,7 +1,12 @@
-const fs = require("fs");
-const path = require("path");
 
-const validEntryActions = [ "Bumped", "Fixed" ];
+const validEntryActions = [
+  // Recommended/Valid normal Entry Actions
+  "Bumped", "Fixed", "Added", "Removed",
+  // Recommended/Valid Group Entry Actions
+  "Rebrand", "Tests", "Decaffeinate",
+  // Not Recommended but Valid Actions
+  "Updated", "Changed", "Update", "Decafed"
+];
 
 const REG = {
   pre: {
@@ -20,8 +25,7 @@ const REG = {
 };
 
 module.exports =
-async function parse(opts) {
-  const changelog = await getChangelog(opts);
+async function parse(changelog) {
 
   let changelogLines = changelog.split("\n");
 
@@ -69,6 +73,17 @@ async function parse(opts) {
       tree.pop();
 
       changelogObj[tree[0]].codebases[cur.replace(REG.pre.codebase, "")] = [];
+
+      // Now we will inspect the tree to remove any previously nested codebases
+      //for (let i = tree.length - 1; i >= 0; i--) {
+      for (let i = tree.length - 1; i >= 1; i--) {
+        // Since we know that any codebase should only be nested 2 levels in,
+        // we will pop all other trees
+        // if (tree[i] === "codebases") {
+        //   tree.pop();
+        // }
+        tree.pop();
+      }
 
       tree.push("codebases");
       tree.push(cur.replace(REG.pre.codebase, ""));
@@ -167,37 +182,37 @@ async function parse(opts) {
       }
 
       entryLoc.push(itemToAdd);
+    } else {
+      // Unable to identify this line
+      // Likely means the line is empty, but we will want to make sure of this
+      if (cur.length > 1) {
+        // This indicates that text is on this line, and we want to find where to append it.
+
+        let entryLoc = changelogObj;
+
+        for (let i = 0; i < tree.length; i++) {
+          entryLoc = entryLoc[tree[i]];
+        }
+
+        if (Array.isArray(entryLoc)) {
+          // The current tree is an array, which is good, it means we can append our data
+          let entry = entryLoc[entryLoc.length-1];
+
+          // The entry object should now be our spot to append data, so it's time to determine
+          // where we can add the data
+          if (typeof entry === "string") {
+            entryLoc[entryLoc.length-1] = `${entryLoc[entryLoc.length-1]} \n${cur}`;
+          } else {
+            console.error(`Unable to determine where to append: '${cur}' within the tree! This data will be lost!`)
+          }
+        } else {
+          console.error(`Unable to determine where to append: '${cur}'! This data will be lost!`);
+        }
+      } // else this line is likely whitespace and can be ignored.
     }
 
     idx++;
   }
 
   return changelogObj;
-}
-
-async function getChangelog(opts) {
-  if (typeof opts.loc === "string") {
-    if (fs.existsSync(opts.loc)) {
-      const file = fs.readFileSync(opts.loc, { encoding: "utf8" });
-
-      return file;
-
-    } else {
-      return new Error(`File: '${opts.loc}' doesn't exist!`);
-    }
-  } else {
-    let filePath = [ "CHANGELOG.md", "CHANGELOG", "changelog.md", "changelog" ].map(pathEle =>
-      path.join(process.cwd, pathEle)
-    ).find(f => fs.existsSync(f));
-
-    if (filePath) {
-
-      const file = fs.readFileSync(filePath, { encoding: "utf8" });
-
-      return file;
-
-    } else {
-      return new Error(`Unable to locate a changelog file at: '${process.cwd}'!`);
-    }
-  }
 }

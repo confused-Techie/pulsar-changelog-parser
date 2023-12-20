@@ -1,0 +1,65 @@
+{
+    "title": "Perfect Changelog Spec",
+    "titleStatements": [
+        "Format inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)",
+        "Format defined in [Pulsar Changelog Parser](https://github.com/confused-Techie/pulsar-changelog-parser)",
+        "Project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)"
+    ],
+    "[Unreleased]": {
+        "summary": [],
+        "codebases": {}
+    },
+    "1.0.1": {
+        "summary": [
+            "Some generic summary notes for this release.",
+            "Additional generic summary notes for this release."
+        ],
+        "codebases": {
+            "Codebase within this Release One": [
+                {
+                    "action": "Bumped",
+                    "text": "A dependency in this codebase",
+                    "contributor": "contributorName",
+                    "pr": "PR-URL"
+                },
+                {
+                    "action": "Fixed",
+                    "text": "A big bad bug in this codebase",
+                    "contributor": "contributorName",
+                    "pr": "PR-URL"
+                }
+            ],
+            "Another Codebase affected by this release": [
+                {
+                    "action": "Removed",
+                    "text": "Rude, misbehaving code",
+                    "contributor": "contributorName",
+                    "pr": "PR-URL"
+                },
+                {
+                    "action": "Rebrand",
+                    "text": "Lots of rebrand PRs whose titles aren't very important",
+                    "contributor": "",
+                    "pr": "",
+                    "groupChanges": [
+                        {
+                            "contributor": "contributorName",
+                            "pr": "PR-URL"
+                        },
+                        {
+                            "contributor": "contributorName2",
+                            "pr": "PR-URL"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "1.0.0 No Changelog stuffs sorry! [PRIOR]": {
+        "summary": [
+            "Just summary notes here. We didn't keep good logs this early.",
+            "By using `[PRIOR]` in the version title, we allow a non-semver compatible version title."
+        ],
+        "codebases": {}
+    }
+}
