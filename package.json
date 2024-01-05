@@ -1,12 +1,12 @@
 {
   "name": "pulsar-changelog-parser",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Parse a Pulsar Changelog",
+  "main": "src/main.js",
   "scripts": {
     "test": "node --test tests/"
   },
-  "keywords": [],
+  "keywords": [ "pulsar", "pulsar-edit "],
   "author": "confused-Techie",
   "license": "MIT",
   "dependencies": {

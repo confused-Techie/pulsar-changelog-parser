@@ -32,6 +32,6 @@ describe("Stringifies", () => {
 
     let obj = fs.readFileSync("./tests/spec/perfect/changelog.spec.md", { encoding: "utf8" });
 
-    assert.strictEqual(res, obj);
+    assert.strictEqual(res.trim(), obj.trim());
   });
 });

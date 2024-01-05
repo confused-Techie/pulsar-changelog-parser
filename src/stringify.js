@@ -94,9 +94,6 @@ async function stringify(clo) {
     }
   }
 
-  // We want to remove any extrenious newlines at the end of the file
-  //cls.replace(/\n$/, "");
-  
   return cls;
 }
 

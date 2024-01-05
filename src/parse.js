@@ -75,13 +75,7 @@ async function parse(changelog) {
       changelogObj[tree[0]].codebases[cur.replace(REG.pre.codebase, "")] = [];
 
       // Now we will inspect the tree to remove any previously nested codebases
-      //for (let i = tree.length - 1; i >= 0; i--) {
       for (let i = tree.length - 1; i >= 1; i--) {
-        // Since we know that any codebase should only be nested 2 levels in,
-        // we will pop all other trees
-        // if (tree[i] === "codebases") {
-        //   tree.pop();
-        // }
         tree.pop();
       }
 
