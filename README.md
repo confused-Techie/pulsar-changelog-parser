@@ -9,7 +9,7 @@ This parser can be used by any projects that decide to use the same changelog st
 To install simply run:
 
 ```
-npm install confused-Techie/pulsar-changelog-parser#1.0.0
+npm install confused-Techie/pulsar-changelog-parser#v1.0.0
 ```
 
 ## Usage
